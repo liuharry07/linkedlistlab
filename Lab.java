@@ -39,6 +39,7 @@ public class Lab {
             return false;
         }
     }
+    
     public static boolean remove(ListNode<String> list, String str) {
         if (contains(list, str)) {
             while (!list.getNext().getValue().equals(str)) {
