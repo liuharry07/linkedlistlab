@@ -135,6 +135,38 @@ public class Lab {
     }
 
     public static ListNode<Integer> sort(ListNode<Integer> list) {
+        int size = 0;
+        int min = list.getValue();
+        ListNode<Integer> one = list;
+        ListNode<Integer> two = list;
+        while(list != null) {
+            two = two.getNext();
+            ++size;
+        }
+        for(int i = 0; i < size; ++i) {
+            for(int j = 0; j < i; ++j) {
+                one = one.getNext();
+            }
+            min = one.getValue();
+            two = one;
+            for(int j = i; j < size; ++j) {
+                if(two.getValue() < min) {
+                    min = two.getValue();
+                }
+            }
+            two = one;
+            for(int j = 0; j < min; ++j) {
+                two = two.getNext();
+            }
+            int temp = one.getValue();
+            one.setValue(two.getValue());
+            for(int j = 0; j < min; ++j) {
+                one = one.getNext();
+            }
+            one.setValue(temp);
+            
+        }
+
         return list;
     }
 
