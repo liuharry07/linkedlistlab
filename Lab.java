@@ -35,11 +35,12 @@ public class Lab {
             }
             list.setNext(new ListNode<String>(str, null));
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }
-    
+
     public static boolean remove(ListNode<String> list, String str) {
         if (contains(list, str)) {
             while (!list.getNext().getValue().equals(str)) {
@@ -70,10 +71,10 @@ public class Lab {
             ++size;
         }
         for (int i = 0; i < size; ++i) {
-            ListNode<E> temp = list;
+            copy = list;
             for (int j = i; j < size - 1; ++j) {
-                temp = temp.getNext();
-                if (temp.getValue() == list.getValue()) {
+                copy = copy.getNext();
+                if (copy.getValue() == list.getValue()) {
                     return true;
                 }
             }
@@ -131,6 +132,10 @@ public class Lab {
             }
             printListNode(insert(result, value));
         }
+    }
+
+    public static ListNode<Integer> sort(ListNode<Integer> list) {
+        return list;
     }
 
     public static <E> void printListNode(ListNode<E> list) {
