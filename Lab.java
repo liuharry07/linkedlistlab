@@ -136,38 +136,42 @@ public class Lab {
 
     public static ListNode<Integer> sort(ListNode<Integer> list) {
         int size = 0;
-        int min = list.getValue();
         ListNode<Integer> one = list;
-        ListNode<Integer> two = list;
-        while(list != null) {
-            two = two.getNext();
+        ListNode<Integer> two = list.getNext();
+        while(one != null) {
+            one = one.getNext();
             ++size;
         }
-        for(int i = 0; i < size; ++i) {
-            for(int j = 0; j < i; ++j) {
-                one = one.getNext();
-            }
-            min = one.getValue();
-            two = one;
-            for(int j = i; j < size; ++j) {
-                if(two.getValue() < min) {
-                    min = two.getValue();
+        one = list;
+        for (int i = 0; i < size - 1; ++i) {
+            two = one.getNext();
+            while (two != null) {
+                if (two.getValue() < one.getValue()) {
+                    int temp = one.getValue();
+                    one.setValue(two.getValue());
+                    one.getNext().setValue(temp);
                 }
-            }
-            two = one;
-            for(int j = 0; j < min; ++j) {
-                two = two.getNext();
-            }
-            int temp = one.getValue();
-            one.setValue(two.getValue());
-            for(int j = 0; j < min; ++j) {
                 one = one.getNext();
+                two = one.getNext();
             }
-            one.setValue(temp);
-            
+            one = list;
         }
-
         return list;
+    }
+
+    public static void testSort() {
+        int[][] tests = {{2, 1, 5, 4, 3}, 
+                        {1, 2, 3, 4, 5}, 
+                        {6, 3, 7, 3, 4, 3, 1}};
+        for(int[] i : tests) {
+            ListNode<Integer> result = null;
+            for (int j = i.length - 1; j >= 0; --j) {
+                ListNode<Integer> temp = new ListNode<Integer>(i[j], result);
+                result = temp;
+            }
+            printListNode(sort(result));
+        }
+            
     }
 
     public static <E> void printListNode(ListNode<E> list) {
@@ -205,6 +209,9 @@ public class Lab {
                         break;
                     case 1:
                         testInsert();
+                        break;
+                    case 2:
+                        testSort();
                         break;
                 }
                 frame.setVisible(false);
