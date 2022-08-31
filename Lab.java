@@ -35,7 +35,8 @@ public class Lab {
             }
             list.setNext(new ListNode<String>(str, null));
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }
@@ -47,7 +48,8 @@ public class Lab {
             }
             list.setNext(list.getNext().getNext());
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }
@@ -95,12 +97,14 @@ public class Lab {
     public static ListNode<Integer> insert(ListNode<Integer> list, int value) {
         if(list.getValue() < value && list.getNext() != null) {
             insert(list.getNext(), value);
-        } else {
+        }
+        else {
             if(list.getValue() >= value) {
                 int temp = list.getValue();
                 list.setValue(value);
                 list.setNext(new ListNode<Integer>(temp, list.getNext()));
-            } else {
+            }
+            else {
                 list.setNext(new ListNode<Integer>(value, list.getNext()));
             }
         }
