@@ -115,10 +115,10 @@ public class Lab {
         int[][] tests = {{1, 2, 3, 4, 5}, {1, 1, 5, 5, 9, 9}, {9, 10, 11, 12, 13},
                 {1, 1, 7, 7, 8, 8, 9, 9}};
         /*
-         * Expected Results: [ 1 | ] -> [ 2 | ] -> [ 3 | ] -> [ 4 | ] -> [ 5 | ] -> [ 8 | null ] [ 1
-         * | ] -> [ 1 | ] -> [ 5 | ] -> [ 5 | ] -> [ 8 | ] -> [ 9 | ] -> [ 9 | null ] [ 8 | ] -> [ 9
-         * | ] -> [ 10 | ] -> [ 11 | ] -> [ 12 | ] -> [ 13 | null ] [ 1 | ] -> [ 1 | ] -> [ 7 | ] ->
-         * [ 7 | ] -> [ 8 | ] -> [ 8 | ] -> [ 8 | ] -> [ 9 | ] -> [ 9 | null ]
+        Expected Results: [ 1 | ] -> [ 2 | ] -> [ 3 | ] -> [ 4 | ] -> [ 5 | ] -> [ 8 | null ]
+        [ 1 | ] -> [ 1 | ] -> [ 5 | ] -> [ 5 | ] -> [ 8 | ] -> [ 9 | ] -> [ 9 | null ]
+        [ 8 | ] -> [ 9 | ] -> [ 10 | ] -> [ 11 | ] -> [ 12 | ] -> [ 13 | null ]
+        [ 1 | ] -> [ 1 | ] -> [ 7 | ] -> [ 7 | ] -> [ 8 | ] -> [ 8 | ] -> [ 8 | ] -> [ 9 | ] -> [ 9 | null ]
          */
         int value = 8;
         for(int[] i : tests) {
@@ -158,6 +158,11 @@ public class Lab {
 
     public static void testSort() {
         int[][] tests = {{2, 1, 5, 4, 3}, {1, 2, 3, 4, 5}, {6, 3, 7, 3, 4, 3, 1}};
+        /*
+        Expected Results: [ 1 | ] -> [ 2 | ] -> [ 3 | ] -> [ 4 | ] -> [ 5 | null ]
+        [ 1 | ] -> [ 2 | ] -> [ 3 | ] -> [ 4 | ] -> [ 5 | null ]
+        [ 1 | ] -> [ 3 | ] -> [ 3 | ] -> [ 3 | ] -> [ 4 | ] -> [ 6 | ] -> [ 7 | null ]
+         */
         for(int[] i : tests) {
             ListNode<Integer> result = null;
             for(int j = i.length - 1; j >= 0; --j) {
@@ -170,12 +175,38 @@ public class Lab {
     }
 
     public static <E> ListNode<E> reverse(ListNode<E> list) {
-
+        ListNode<E> one = list;
+        ListNode<E> two = list.getNext();
+        ListNode<E> three = list.getNext();
+        one.setNext(null);
+        while(two != null) {
+            three = three.getNext();
+            two.setNext(one);
+            one = two;
+            two = three;
+        }
+        return one;
     }
 
     public static void testReverse() {
-        int[][] tests = {{1, 2, 3, 4, 5}};
+        /*
+        Expected Results: [ 1 | null ]
+        [ 2 | ] -> [ 1 | null ]
+        [ 5 | ] -> [ 4 | ] -> [ 3 | ] -> [ 2 | ] -> [ 1 | null ]
+        [ 1 | ] -> [ 7 | ] -> [ 4 | ] -> [ 8 | ] -> [ 6 | ] -> [ 2 | null ]
+         */
+        int[][] tests = {{1}, {1, 2}, {1, 2, 3, 4, 5}, {2, 6, 8, 4, 7, 1},};
+        for(int[] i : tests) {
+            ListNode<Integer> result = null;
+            for(int j = i.length - 1; j >= 0; --j) {
+                ListNode<Integer> temp = new ListNode<Integer>(i[j], result);
+                result = temp;
+            }
+            printListNode(reverse(result));
+        }
     }
+
+    //hasLoop - one pointer at starting node, other pointer looping, see if pointers meet?
 
     public static <E> void printListNode(ListNode<E> list) {
         while(list.getNext() != null) {
@@ -215,6 +246,9 @@ public class Lab {
                         break;
                     case 2:
                         testSort();
+                        break;
+                    case 3:
+                        testReverse();
                         break;
                 }
                 frame.setVisible(false);
