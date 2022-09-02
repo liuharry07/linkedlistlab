@@ -1,4 +1,4 @@
-// For Additional Credit Tester - not used in exercises
+// Libraries For Additional Credit Tester - not used in exercises
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
@@ -88,6 +88,7 @@ public class Lab {
         String[][] tests = {{}, {"A"}, {"A", "A"}, {"A", "B"}, {"A", "B", "C", "D", "E"},
                 {"A", "B", "C", "D", "C"}, {"A", "A", "C", "D", "E"}};
         // Expected Results: false, false, true, false, false, true, true
+        System.out.println("\ntestHasDuplicate: ");
         for(String[] i : tests) {
             System.out.print(Arrays.toString(i));
             System.out.println(" - " + hasDuplicate(toList(i)));
@@ -95,6 +96,10 @@ public class Lab {
     }
 
     public static ListNode<Integer> insert(ListNode<Integer> list, int value) {
+        //fix if null
+        if(list == null) {
+            return list;
+        }
         if(list.getValue() < value && list.getNext() != null) {
             insert(list.getNext(), value);
         }
@@ -113,7 +118,8 @@ public class Lab {
 
     public static void testInsert() {
         int[][] tests = {{1, 2, 3, 4, 5}, {1, 1, 5, 5, 9, 9}, {9, 10, 11, 12, 13},
-                {1, 1, 7, 7, 8, 8, 9, 9}};
+                {1, 1, 7, 7, 8, 8, 9, 9}, {}};
+        System.out.println("\ntestInsert: ");
         /*
         Expected Results: [ 1 | ] -> [ 2 | ] -> [ 3 | ] -> [ 4 | ] -> [ 5 | ] -> [ 8 | null ]
         [ 1 | ] -> [ 1 | ] -> [ 5 | ] -> [ 5 | ] -> [ 8 | ] -> [ 9 | ] -> [ 9 | null ]
@@ -127,12 +133,17 @@ public class Lab {
                 ListNode<Integer> temp = new ListNode<Integer>(i[j], result);
                 result = temp;
             }
+            System.out.print("original listNode - ");
+            printListNode(result);
+            System.out.print("insert " + value + " - ");
             printListNode(insert(result, value));
         }
     }
 
     public static ListNode<Integer> sort(ListNode<Integer> list) {
         int size = 0;
+        if(list == null) 
+            return list;
         ListNode<Integer> one = list;
         ListNode<Integer> two = list.getNext();
         while(one != null) {
@@ -157,7 +168,8 @@ public class Lab {
     }
 
     public static void testSort() {
-        int[][] tests = {{2, 1, 5, 4, 3}, {1, 2, 3, 4, 5}, {6, 3, 7, 3, 4, 3, 1}};
+        int[][] tests = {{}, {2, 1, 5, 4, 3}, {1, 2, 3, 4, 5}, {6, 3, 7, 3, 4, 3, 1}};
+        System.out.println("\ntestSort: ");
         /*
         Expected Results: [ 1 | ] -> [ 2 | ] -> [ 3 | ] -> [ 4 | ] -> [ 5 | null ]
         [ 1 | ] -> [ 2 | ] -> [ 3 | ] -> [ 4 | ] -> [ 5 | null ]
@@ -169,12 +181,17 @@ public class Lab {
                 ListNode<Integer> temp = new ListNode<Integer>(i[j], result);
                 result = temp;
             }
+            System.out.print("original listNode - ");
+            printListNode(result);
+            System.out.print("sort - ");
             printListNode(sort(result));
         }
 
     }
 
     public static <E> ListNode<E> reverse(ListNode<E> list) {
+        if(list == null)
+            return list;
         ListNode<E> one = list;
         ListNode<E> two = list.getNext();
         ListNode<E> three = list.getNext();
@@ -195,13 +212,17 @@ public class Lab {
         [ 5 | ] -> [ 4 | ] -> [ 3 | ] -> [ 2 | ] -> [ 1 | null ]
         [ 1 | ] -> [ 7 | ] -> [ 4 | ] -> [ 8 | ] -> [ 6 | ] -> [ 2 | null ]
          */
-        int[][] tests = {{1}, {1, 2}, {1, 2, 3, 4, 5}, {2, 6, 8, 4, 7, 1},};
+        int[][] tests = {{}, {1}, {1, 2}, {1, 2, 3, 4, 5}, {2, 6, 8, 4, 7, 1},};
+        System.out.println("\ntestReverse: ");
         for(int[] i : tests) {
             ListNode<Integer> result = null;
             for(int j = i.length - 1; j >= 0; --j) {
                 ListNode<Integer> temp = new ListNode<Integer>(i[j], result);
                 result = temp;
             }
+            System.out.print("original listNode - ");
+            printListNode(result);
+            System.out.print("reverse - ");
             printListNode(reverse(result));
         }
     }
@@ -209,11 +230,16 @@ public class Lab {
     //hasLoop - one pointer at starting node, other pointer looping, see if pointers meet?
 
     public static <E> void printListNode(ListNode<E> list) {
-        while(list.getNext() != null) {
-            System.out.print("[ " + list.getValue() + " | ] -> ");
-            list = list.getNext();
+        if(list == null) {
+            System.out.println("null");
         }
-        System.out.println("[ " + list.getValue() + " | null ]");
+        else {
+            while(list.getNext() != null) {
+                System.out.print("[ " + list.getValue() + " | ] -> ");
+                list = list.getNext();
+            }
+            System.out.println("[ " + list.getValue() + " | null ]");
+        }
     }
 
     public static void tester() {
@@ -235,6 +261,7 @@ public class Lab {
         frame.setSize(200, 200);
         frame.setLayout(null);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 switch(list.getSelectedIndex()) {
@@ -251,7 +278,6 @@ public class Lab {
                         testReverse();
                         break;
                 }
-                frame.setVisible(false);
             }
         });
     }
