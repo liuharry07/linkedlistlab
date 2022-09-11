@@ -253,7 +253,6 @@ public class Lab {
         System.out.print("null - ");
         System.out.println(hasLoop(null));
     }
-    //hasLoop - one pointer at starting node, other pointer looping, see if pointers meet?
 
     public static <E> void printListNode(ListNode<E> list) {
         if(list == null) {
