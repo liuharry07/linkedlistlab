@@ -98,7 +98,7 @@ public class Lab {
     public static ListNode<Integer> insert(ListNode<Integer> list, int value) {
         //fix if null
         if(list == null) {
-            return list;
+            return new ListNode<Integer>(value, null);
         }
         if(list.getValue() < value && list.getNext() != null) {
             insert(list.getNext(), value);
@@ -117,8 +117,8 @@ public class Lab {
     }
 
     public static void testInsert() {
-        int[][] tests = {{1, 2, 3, 4, 5}, {1, 1, 5, 5, 9, 9}, {9, 10, 11, 12, 13},
-                {1, 1, 7, 7, 8, 8, 9, 9}, {}};
+        int[][] tests = {{}, {1, 2, 3, 4, 5}, {1, 1, 5, 5, 9, 9}, {9, 10, 11, 12, 13},
+                {1, 1, 7, 7, 8, 8, 9, 9}};
         System.out.println("\ntestInsert: ");
         /*
         Expected Results: [ 1 | ] -> [ 2 | ] -> [ 3 | ] -> [ 4 | ] -> [ 5 | ] -> [ 8 | null ]
@@ -227,6 +227,32 @@ public class Lab {
         }
     }
 
+    public static <E> boolean hasLoop(ListNode<E> list) {
+        ListNode<E> copy = list;
+        while(list != null && list.getNext() != null) {
+            list = list.getNext();
+            if(list == copy) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public static void testHasLoop() {
+        System.out.println("\ntestHasLoop: ");
+        ListNode<Integer> test = new ListNode<Integer>(1, new ListNode<Integer>(2, new ListNode<Integer>(3, null)));
+        System.out.print("original listNode - ");
+        printListNode(test);
+        System.out.print("has loop - ");
+        System.out.println(hasLoop(test));
+        test.getNext().getNext().setNext(test);
+        System.out.print("listNode looped to beginning - ");
+        System.out.print("has loop - ");
+        System.out.println(hasLoop(test));
+        System.out.print("null - ");
+        System.out.println(hasLoop(null));
+    }
     //hasLoop - one pointer at starting node, other pointer looping, see if pointers meet?
 
     public static <E> void printListNode(ListNode<E> list) {
@@ -276,6 +302,9 @@ public class Lab {
                         break;
                     case 3:
                         testReverse();
+                        break;
+                    case 4:
+                        testHasLoop();
                         break;
                 }
             }
