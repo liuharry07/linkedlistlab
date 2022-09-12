@@ -247,11 +247,11 @@ public class Lab {
         System.out.print("has loop - ");
         System.out.println(hasLoop(test));
         test.getNext().getNext().setNext(test);
-        System.out.print("listNode looped to beginning - ");
+        System.out.println("listNode looped to beginning - ");
         System.out.print("has loop - ");
         System.out.println(hasLoop(test));
-        System.out.print("null - ");
-        System.out.println(hasLoop(null));
+        System.out.println("null - ");
+        System.out.println("hasloop - " + hasLoop(null));
     }
 
     public static <E> void printListNode(ListNode<E> list) {
